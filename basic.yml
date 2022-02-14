@@ -15,7 +15,7 @@ addressing:
     prefix: 32
   p2p:
     ipv4: 10.1.0.0/16
-    prefix: 30
+    prefix: 31
     ipv6: true
 
 nodes: [R1, R2, R3]
