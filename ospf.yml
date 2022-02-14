@@ -1,0 +1,40 @@
+name: ospf
+provider: clab
+defaults:
+  device: eos
+  devices:
+    eos.clab.image: ceos:4.27.2F
+
+
+addressing:
+  loopback:
+    ipv4: 10.0.0.0/24
+    ipv6: 200::/7
+  router_id:
+    ipv4: 10.0.0.0/24
+    prefix: 32
+  p2p:
+    ipv4: 10.1.0.0/16
+    prefix: 30
+    ipv6: true
+
+module: [ospf]
+ospf:
+  area: 0
+
+nodes:
+  - name: R1
+    ospf:
+      area: 1
+  - name: R2
+  - name: R3
+    ospf:
+      area: 3
+
+links:
+  - R1:
+      ospf.area: 0
+    R2:
+  - R2:
+    R3:
+      ospf.area: 0
