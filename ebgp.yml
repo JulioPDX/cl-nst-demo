@@ -1,0 +1,61 @@
+# Topology can be used to practice BGP routing policies
+# Based on CCIE R/S v5.0 Volume 2, figure 2-7
+name: ebgp
+provider: clab
+# Select device flavor
+# Either comment out eos or srlinux, have fun.
+defaults.device: eos
+defaults.devices.eos.clab.image: ceos:4.27.2F
+# defaults.device: srlinux
+defaults.devices.srlinux.clab.image: ghcr.io/nokia/srlinux:latest
+
+# Connect to eos
+# docker exec -it <container name> Cli
+
+# Connec to srlinux
+# docker exec -it <container-name> sr_cli
+
+addressing:
+  p2p:
+    ipv4: 10.1.0.0/16
+    prefix: 31
+
+bgp:
+  as_list:
+    123:
+      members: [ R1,R2,R3 ]
+
+module: [ bgp ]
+
+nodes: 
+- name: R1
+  module: [ bgp, ospf ]
+- name: R2
+  module: [ bgp, ospf ]
+- name: R3
+  module: [ bgp, ospf ]
+- name: R4
+  bgp.as: 4
+- name: R5
+  bgp.as: 5
+- name: R6
+  bgp.as: 65000
+- name: R9
+  bgp.as: 9
+  id: 9
+  loopback:
+      ipv4: 10.0.0.9/32
+
+links:
+- R1-R2
+- R1-R3
+- R1-R4
+- R1-R5
+- R1-R6
+- R2-R3
+- R3-R4
+- R3-R5
+- R3-R6
+- R4-R9
+- R5-R9
+- R6-R9
