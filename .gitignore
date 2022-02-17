@@ -3,6 +3,7 @@
 .*clab.yaml
 clab-cl-nst-demo
 clab-ebgp
+priv
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
